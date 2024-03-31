@@ -1,0 +1,48 @@
+.button-size{
+ 
+    font-size: 13px;
+    color: white;
+    background-color: #E72929;
+    border: Red;
+  }
+  .button-size-dialog{
+    font-size: 13px;
+    color: white;
+    background-color: #E72929;
+    border: Red;
+    width: 70px;
+  }
+  .button-size:hover{
+    color: #E72929;
+    background-color: white;
+    border: 1px solid #E72929;
+
+  }
+
+
+  .heading-style {
+    background-color: whitesmoke;
+    color: red;
+    border: 2px solid red;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+    padding:8px;
+  }
+  .dialog-label{
+    font-size: 2rem;
+    color: #E72929;
+    padding-bottom: 20px;
+  }
+  .dialog-text{
+    font-size: 15px;
+  }
+  input{
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid grey;
+  }
+  input,input ::placeholder{
+    font-size: 14px;
+
+  }

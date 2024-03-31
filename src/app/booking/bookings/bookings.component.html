@@ -1,0 +1,50 @@
+<!-- <app-header></app-header>
+<h5 *ngIf="eventId">Booking of Event Id: {{eventId}}</h5>
+  <p-table [value]="bookings" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Booking Id</th>
+        <th>Event Name</th>
+        <th>Number of Tickets Booked</th>
+        <th *ngIf="authService.getCookies()==='admin'|| authService.getCookies()==='organizer'">Customer's Username</th>
+      </tr>
+    </ng-template>
+  
+    <ng-template pTemplate="body" let-booking>
+      <tr>
+        <td>{{ booking.booking.id }}</td>
+        <td>{{ booking.event.eventName }}</td>
+        <td>{{ booking.booking.numberOfTickets }}</td>
+        <td *ngIf="authService.getCookies()==='admin' || authService.getCookies()==='organizer'">{{ booking.username }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+   -->
+
+   <app-header></app-header>
+
+
+<div class="container">
+  <h2 *ngIf="!eventId" class="text-center mb-4 heading-style">Bookings: </h2>
+  <h2 *ngIf="eventId" class="text-center mb-4 heading-style">Bookings of Event Id: {{eventId}}</h2>
+  <table class="table table-bordered m-50" style="min-width: 50rem;">
+    <thead style="background-color: red; color: white;">
+      <tr>
+        <th class="text-center">S. No.</th>
+        <th class="text-center">Booking Id</th>
+        <th class="text-center">Event Name</th>
+        <th class="text-center">Number of Tickets Booked</th>
+        <th class="text-center" *ngIf="authService.getCookies() === 'admin' || authService.getCookies() === 'organizer'">Customer's Username</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of bookings; index as i">
+        <td class="text-center">{{ i + 1 }}</td>
+        <td class="text-center">{{ booking.booking.id }}</td>
+        <td class="text-center">{{ booking.event.eventName }}</td>
+        <td class="text-center">{{ booking.booking.numberOfTickets }}</td>
+        <td class="text-center" *ngIf="authService.getCookies() === 'admin' || authService.getCookies() === 'organizer'">{{ booking.username }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

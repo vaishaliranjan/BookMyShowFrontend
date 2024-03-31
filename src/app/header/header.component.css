@@ -1,0 +1,18 @@
+/* Custom CSS to change text color to white */
+.navbar-default{
+    background-color: #E72929;
+}
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav > li > a {
+  color: #fff !important; /* Set text color to white */
+}
+
+/* Hover styles for navigation links */
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #ccc !important; /* Change color on hover/focus */
+}
+
+li{
+    cursor: pointer;
+}

@@ -1,0 +1,108 @@
+<!-- <app-header></app-header>
+<div class="container" >
+  <input  *ngIf="!byArtistUsername" type="text" pInputText [(ngModel)]="artistUsername" />
+  <p-button *ngIf="!byArtistUsername" label="Search By Artist Username" (click)="SearchByArtistUsername()"></p-button>
+  <p-button *ngIf="byArtistUsername" label="View All Events" (click)="ViewAllEvents()"></p-button>
+</div>
+<div class="container">
+<p-table [value]="events" [tableStyle]="{ 'min-width': '100rem' }">
+  
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Event Name</th>
+      <th>Price Per Ticket</th>
+      <th>Number of Tickets Available</th>
+      <th></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-event>
+    <tr>
+      <td>{{ event.eventName }}</td>
+      <td>{{ event.price }}</td>
+      <td>{{ event.numberOfTickets }}</td>
+      <td>
+        <p-button *ngIf="authService.getCookies()==='customer'" label="Book Tickets" class="mr-2" [disabled]="event.numberOfTickets == 0" (click)="OnBookTicket(event.id)"></p-button>
+        <div>
+          <p-dialog header="Header" [(visible)]="showBookingDialog" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+            <p class="m-0">
+              <label for="numberOfTickets" class="block text-900 font-medium mb-2">Number Of Tickets</label>
+              <input id="numberOfTickets" type="number" placeholder="Number Of Tickets" pInputText class="w-full mb-3" [(ngModel)]="numberOfTickets" >
+              <p-button label="Book" class="p-button-success mr-1" (click)="AddBooking()"></p-button>
+              <p-button label="Cancel" (click)="CancelBooking()"></p-button>
+            </p>
+          </p-dialog>
+        </div>
+        <p-button label="Cancel Event" *ngIf="authService.getCookies()==='admin' || authService.getCookies()==='organizer'" (click)="OnCancelEvent()"></p-button>
+        <div>
+          <p-dialog header="Cancel Event" [(visible)]="showCancelEventDialog" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+            <p class="m-0">
+              <label>Are you sure you want to cancel this event?</label>
+              <p-button label="Yes" class="p-button-success mr-1" (click)="CancelEvent(event.id)"></p-button>
+              <p-button label="No" (click)="Back()"></p-button>
+            </p>
+          </p-dialog>
+        </div>
+        <p-button label="View Bookings" *ngIf="authService.getCookies()==='admin' || authService.getCookies()==='organizer'" (click)="OnViewBookings(event.id)"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>
+</div> -->
+<app-header></app-header>
+
+<div class="container">
+  <input placeholder="Enter artist username" *ngIf="!byArtistUsername" type="text" pInputText [(ngModel)]="artistUsername" />
+  <button pButton *ngIf="!byArtistUsername" class="button-size" [disabled]="artistUsername==''" label="Search By Artist Username" (click)="SearchByArtistUsername()"></button>
+  <button pButton class="button-size" *ngIf="byArtistUsername" label="View All Events" (click)="ViewAllEvents()"></button>
+</div>
+
+<div class="container">
+  <h2 class="text-center mb-4 heading-style">Events:</h2>
+  <table class="table table-bordered m-50" style="min-width: 100rem;">
+    <thead style="background-color: red; color: white;">
+      <tr>
+        <th class="text-center">S. No.</th>
+        <th class="text-center">Event Name</th>
+        <th class="text-center">Price Per Ticket</th>
+        <th class="text-center">Number of Tickets Available</th>
+        <th class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events; index as i">
+        <td class="text-center">{{i+1}}</td>
+        <td class="text-center">{{ event.eventName }}</td>
+        <td class="text-center">{{ event.price }}</td>
+        <td class="text-center">{{ event.numberOfTickets }}</td>
+        <td class="text-center button-container">
+          <button pButton class="button-size mr-2" *ngIf="authService.getCookies()==='customer'" label="Book Tickets" [disabled]="event.numberOfTickets == 0" (click)="OnBookTicket(event.id)"></button>
+          <div>
+            <p-dialog [(visible)]="showBookingDialog" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+              <p class="m-0">
+                <label for="numberOfTickets" class="dialog-label block">Book Tickets for {{event.eventName}}: </label>
+                <label for="numberOfTickets" class="dialog-text block">Number Of Tickets: </label>
+                <input id="numberOfTickets" type="number" placeholder="Number Of Tickets" pInputText class="w-full mb-3" [(ngModel)]="numberOfTickets">
+                <button pButton label="Book" class="button-size mr-2" (click)="AddBooking()"></button>
+                <button pButton label="Cancel" class="button-size" (click)="CancelBooking()"></button>
+              </p>
+            </p-dialog>
+          </div>
+
+          <button pButton class="button-size mr-2" label="Cancel Event" *ngIf="authService.getCookies()==='admin' || authService.getCookies()==='organizer'" (click)="OnCancelEvent()"></button>
+          <div>
+            <p-dialog [(visible)]="showCancelEventDialog" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+              <p class="m-0">
+                <label class="dialog-label block">Are you sure you want to cancel this event?</label>
+                <button pButton label="Yes" class="button-size-dialog mr-2" (click)="CancelEvent(event.id)"></button>
+                <button pButton label="No" class="button-size-dialog" (click)="Back()"></button>
+              </p>
+            </p-dialog>
+          </div>
+          <button class="button-size" pButton label="View Bookings" *ngIf="authService.getCookies()==='admin' || authService.getCookies()==='organizer'" (click)="OnViewBookings(event.id)"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

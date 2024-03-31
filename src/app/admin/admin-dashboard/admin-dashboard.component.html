@@ -1,0 +1,21 @@
+<app-header></app-header>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-4 col-sm-6" *ngFor="let card of cards; let i = index">
+      <div class="card-container">
+        <p-card>
+          <ng-template pTemplate="title">
+            <div class="card-title">
+              <img [src]="card.imageUrl" class="card-image" alt="Card Image">
+            </div>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <div class="card-footer">
+              <button pButton [label]="card.title" class="button-size" (click)="viewDetails(i)"></button>
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>

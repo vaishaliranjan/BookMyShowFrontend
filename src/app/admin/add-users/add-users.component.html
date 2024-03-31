@@ -1,0 +1,53 @@
+<app-header></app-header>
+<p-toast position="top-right">
+</p-toast>
+<form (ngSubmit)="OnAddUser()" #registrationForm="ngForm">
+    <div class="container">
+    <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+        <div class="text-center mb-5">
+            <div class="addnewUser">Add New User</div>
+        </div>
+
+        <div>
+            <label for="name" >Name</label>
+            <input id="name" type="text" placeholder="Name" pInputText class="w-full mb-3" name="name" ngModel>
+
+            <label for="email">Email</label>
+            <input id="email" type="text" placeholder="Email address" pInputText class="w-full mb-3" name="email" ngModel>
+            
+            <label for="username">Username</label>
+            <input id="username" type="text" placeholder="Username" pInputText class="w-full mb-3" name="username" ngModel>
+
+            <label for="password1">Password</label>
+            <input id="password1" type="password" placeholder="Password" pInputText class="w-full mb-3" name="password" ngModel>
+
+            <label for="password2">Confirm Password</label>
+            <input id="password2" type="password" placeholder="Password" pInputText class="w-full mb-3" name="confirmPassword" ngModel>
+
+
+        <label for="role" class="mb-2">Type of user:</label>
+   
+        <div class="flex flex-wrap gap-3 m-3">
+            <div class="flex align-items-center  ">
+                <p-radioButton name="admin" value="admin" [(ngModel)]="role" ngModel></p-radioButton>
+                <label for="admin" class="ml-2 font-medium">Admin</label>
+            </div>
+
+            <div class="flex align-items-center">
+                <p-radioButton name="customer" value="customer" [(ngModel)]="role"  ngModel></p-radioButton>
+                <label for="customer" class="ml-2 font-medium">Customer</label>
+            </div>
+
+            <div class="flex align-items-center">
+                <p-radioButton name="organizer" value="organizer" [(ngModel)]="role" ngModel></p-radioButton>
+                <label for="organizer" class="ml-2 font-medium">Organizer</label>
+            </div>
+            
+            
+        </div>
+
+            <button pButton  pRipple label="Add User" icon="pi pi-user" class="w-full button-size"></button>
+        </div>
+    </div>
+    </div>
+</form>

@@ -1,0 +1,22 @@
+<form (ngSubmit)="OnLogin()" #loginForm="ngForm">
+    <div class="container">
+        <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+            <div class="text-center mb-5">
+                <div class="logo mb-1 mt-5">Book My Show</div>
+                <span class="text-600 font-medium line-height-3">Don't have an account?</span>
+                <a class="font-medium no-underline ml-2 text-red-500 cursor-pointer" routerLink="/auth/register">Register Now!</a>
+            </div>
+
+            <div>
+                <label for="username">Username</label>
+                <input id="username" type="text" placeholder="Username" pInputText class="w-full mb-3" name="username" ngModel>
+
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Password" pInputText class="w-full mb-3"  name="password" ngModel>
+                
+        
+                <button pButton pRipple label="Sign In" icon="pi pi-user" class="w-full button-size" type="submit"></button>
+            </div>
+        </div>
+    </div>
+</form>

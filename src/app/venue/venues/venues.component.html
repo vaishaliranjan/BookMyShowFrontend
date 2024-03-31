@@ -1,0 +1,76 @@
+<!-- <app-header>
+</app-header>
+<p-messages [(value)]="messageService"  [closable]="true"></p-messages>
+<div class="container">
+<p-table [value]="venues" [tableStyle]="{ 'min-width': '100rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Venue Id</th>
+        <th>Place</th>
+        <th>Available</th>
+        <th></th>
+      </tr>
+    </ng-template>
+  
+    <ng-template pTemplate="body" let-venue>
+      <tr>
+        <td>{{ venue.venueId }}</td>
+        <td>{{ venue.place }}</td>
+        <td>{{ venue.isBooked? "No":"Yes" }}</td>
+        <td><p-button label="Book" [disabled]="venue.isBooked" (click)="OnSelectVenue(venue)"></p-button></td>
+      </tr>
+    </ng-template>
+  </p-table>
+  
+
+  <p-button label="Add New Venue" (click)="OnAddNewVenue()"></p-button>
+  <p-dialog header="Header" [(visible)]="showAddVenueDialog" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <p class="m-0">
+      <label for="place" class="block text-900 font-medium mb-2">Venue: </label>
+      <input id="place" type="text" placeholder="Venue" pInputText class="w-full mb-3" [(ngModel)]="place">
+      
+      
+      <p-button label="Add" class="p-button-success mr-1" (click)="AddNewVenue()"></p-button>
+      <p-button label="Cancel" (click)="CancelAddVenue()"></p-button>
+    </p>
+  </p-dialog>
+  </div> -->
+
+  <app-header></app-header>
+<p-messages [(value)]="messageService" [closable]="true"></p-messages>
+
+<div class="container">
+  <h2 class="text-center mb-4 heading-style">Venues:</h2>
+  <table class=" table table-bordered m-50" style="min-width: 100rem;">
+    <thead style="background-color: red; color: white;">
+      <tr>
+        <th class="text-center">S. No.</th>
+        <th class="text-center">Place</th>
+        <th class="text-center">Available</th>
+        <th class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let venue of venues;index as i">
+        <td class="text-center">{{ i+1 }}</td>
+        <td class="text-center">{{ venue.place }}</td>
+        <td class="text-center">{{ venue.isBooked ? 'No' : 'Yes' }}</td>
+        <td class="text-center">
+          <button pButton label="Book" class="button-size" [disabled]="venue.isBooked || authService.getCookies()!=='organizer'" (click)="OnSelectVenue(venue)"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button pButton label="Add New Venue" class="button-size" (click)="OnAddNewVenue()"></button>
+  <p-dialog  [(visible)]="showAddVenueDialog" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <p class="m-0">
+      <label for="place" class="dialog-label block">Add New Venue:</label>
+      <label for="place" class="dialog-text block">Venue:</label>
+      <input id="place" type="text" placeholder="Venue" pInputText class="w-full mb-3" [(ngModel)]="place">
+
+      <button pButton label="Add" class="button-size-dialog p-button-success mr-1" (click)="AddNewVenue()"></button>
+      <button pButton label="Cancel" class="button-size-dialog" (click)="CancelAddVenue()"></button>
+    </p>
+  </p-dialog>
+</div>

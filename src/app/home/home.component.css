@@ -1,0 +1,83 @@
+.homepage-container {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+  }
+  
+  .background-image {
+    background-image: url('https://wallpaperaccess.com/full/6133730.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    filter: brightness(0.5); /* Light black layer */
+  }
+  
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+  }
+  
+  h1,
+  p {
+    margin: 0;
+  }
+  
+  .buttons {
+    margin-top: 20px;
+  }
+  
+  .button-size:hover {
+    color: white;
+    background-color: #e72929;
+    border: 1px solid white;
+  }
+  
+  .button-size {
+    width: 150px;
+    height: 45px;
+    font-size: 15px;
+    color: white;
+    background-color: #e72929;
+    border: 1px solid red; /* Fix border style */
+    
+    /* Flexbox styles for centering */
+    justify-content: center; /* Horizontal centering */
+  }
+  
+
+  .title{
+    font-size: 2.8rem;
+  }
+  .title-red{
+    font-size: 2.8rem;
+    color: #e72929;
+  }
+
+  .send-message-section {
+    margin-top: 50px;
+  }
+  
+  .red-heading {
+    color: #e72929; /* Red color for the heading */
+    font-size: 24px;
+  }
+  
+  .message-form {
+    margin-top: 20px;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical; /* Allow vertical resizing of textarea */
+  }
+ 
