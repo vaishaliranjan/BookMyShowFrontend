@@ -40,7 +40,7 @@
    -->
 
 <app-header></app-header>
-<p-toast></p-toast>
+<p-toast position="top-right"></p-toast>
 
 <div class="container">
   <h2 class="text-center mb-4 heading-style">Artists: </h2>
@@ -65,7 +65,7 @@
     </tbody>
   </table>
 
-  <button pButton label="Add New Artist" class="button-size" (click)="OnAddNewArtist()"></button>
+  <button pButton label="Add New Artist" *ngIf="authService.getCookies()!=='organizer'" class="button-size" (click)="OnAddNewArtist()"></button>
   <p-dialog  [(visible)]="showAddArtistDialog" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
     <p class="m-0">
       <label for="" class="dialog-label block">Add New Artist: </label>

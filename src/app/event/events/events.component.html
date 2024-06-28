@@ -51,7 +51,7 @@
 </p-table>
 </div> -->
 <app-header></app-header>
-
+<p-toast position="top-right"></p-toast>
 <div class="container">
   <input placeholder="Enter artist username" *ngIf="!byArtistUsername" type="text" pInputText [(ngModel)]="artistUsername" />
   <button pButton *ngIf="!byArtistUsername" class="button-size" [disabled]="artistUsername==''" label="Search By Artist Username" (click)="SearchByArtistUsername()"></button>

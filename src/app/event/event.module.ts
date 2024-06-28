@@ -16,6 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from '../header/header.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -36,7 +38,11 @@ import { HeaderComponent } from '../header/header.component';
     ButtonModule,
     FormsModule,
     DialogModule,
-    HeaderComponent
+    HeaderComponent,
+    ToastModule
+  ],
+  providers:[
+    MessageService
   ]
 })
 export class EventModule { }

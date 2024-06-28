@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { VenueService } from '../../services/venue.service';
 import { Router } from '@angular/router';
-import { Message } from "primeng/api"; 
+import { Message, MessageService } from "primeng/api"; 
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -12,11 +12,11 @@ import { AuthService } from '../../services/auth.service';
 export class VenuesComponent {
   venues:any[];
   venueService= inject(VenueService);
-  messageService:Message[];
   router=inject(Router);
   showAddVenueDialog= false;
   place:string;
   authService=inject(AuthService);
+  constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.loadVenues();
@@ -40,12 +40,32 @@ export class VenuesComponent {
 
   AddNewVenue(){
     const venue={place:this.place};
-    this.venueService.addVenue(venue).subscribe(()=>{
-      this.loadVenues();
-      console.log("venue added")
+    this.venueService.addVenue(venue).subscribe({
+      next:()=>{
+        this.loadVenues();
+        console.log("Venue added successfully");
+        this.showAddVenueDialog=false;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Venue added successfully!!',
+        });
+      },
+      error:(err)=>{
+        let errorMessage = 'An error occurred.';
+        if (err.error && err.error.includes('Invalid DateTime')) {
+          errorMessage = 'Invalid DateTime';
+        } 
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: errorMessage
+        });
+        this.showAddVenueDialog=false;
+      }
+      
+      
     })
-    this.showAddVenueDialog=false;
-    this.messageService=[{severity:"success",summary:"Venue Added Successfully"}];
     
   }
   CancelAddVenue(){

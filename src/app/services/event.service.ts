@@ -21,9 +21,7 @@ export class EventService{
     }
     
     deleteEvent(eventId:number){
-        this.http.delete('https://localhost:44338/api/events/'+eventId).subscribe(()=>{
-            console.log("Event Deleted successfully")
-        })
+        return this.http.delete('https://localhost:44338/api/events/'+eventId);
     }
 
     getEventsByArtist(artistUsername:string){

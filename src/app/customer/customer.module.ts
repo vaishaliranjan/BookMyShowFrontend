@@ -13,6 +13,7 @@ import { CustomersComponent } from './customers/customers.component';
 import { TableModule } from 'primeng/table';
 import { HeaderComponent } from '../header/header.component';
 import { DialogModule } from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DialogModule } from 'primeng/dialog';
     InputTextModule,
     TableModule,
     HeaderComponent,
-    DialogModule
+    DialogModule,
+    ToastModule
   ]
 })
 export class CustomerModule { }

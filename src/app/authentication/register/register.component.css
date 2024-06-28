@@ -39,3 +39,8 @@ label{
   font-size: 15px;
   font-weight: 200;
 }
+
+small{
+  color: #E72929;
+  font-weight: bold;
+}

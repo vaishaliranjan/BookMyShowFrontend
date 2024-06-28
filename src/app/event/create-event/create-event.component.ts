@@ -5,6 +5,7 @@ import { VenueService } from '../../services/venue.service';
 import { NgForm } from '@angular/forms';
 import { Event } from '../../model/event.model';
 import { EventService } from '../../services/event.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-create-event',
@@ -19,6 +20,7 @@ export class CreateEventComponent implements OnInit{
   venueService=inject(VenueService)
   eventService=inject(EventService);
   @ViewChild('eventForm') form:NgForm;
+  constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {
   this.artist=this.artistService.getSelectedArtist();
@@ -35,8 +37,35 @@ export class CreateEventComponent implements OnInit{
     const price = this.form.value.price;
     const event=new Event(eventName,this.artist.id,this.venue.venueId,numberOfTickets,price);
     console.log(event);
-    this.eventService.createEvent(event).subscribe(() => {
-      this.router.navigate(['events'], { queryParams: { refresh: new Date().getTime() } });
+    this.eventService.createEvent(event).subscribe({
+      next:()=>{
+        console.log("Event Added successfully");
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Event deleted successfully!!',
+        });
+        setTimeout(()=>{
+          this.router.navigate(['events'], { queryParams: { refresh: new Date().getTime() } });
+        },3000)
+      },
+      error:(err)=>{
+        let errorMessage = 'An internal error occurred. Please try again!';
+        if (err.error && err.error.includes("This artist can't be choosen")) {
+          errorMessage = 'Please choose any other artist.';
+          
+        } 
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: errorMessage
+        });
+        setTimeout(()=>{
+          this.router.navigate(['artists'], { queryParams: { refresh: new Date().getTime() } });
+        },3000)
+      }
+      
+      
     });
   }
 
@@ -46,3 +75,5 @@ export class CreateEventComponent implements OnInit{
     console.log(this.artist)
   }
 }
+
+

@@ -1,4 +1,5 @@
 <app-header></app-header>
+<p-toast position="top-right"></p-toast>
 <form (ngSubmit)="OnCreateEvent()" #eventForm="ngForm">
     <div class="container">
     <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
@@ -8,21 +9,21 @@
 
         <div>
             <label for="eventName"  >Event Name</label>
-            <input id="eventName" type="text" placeholder="Event Name" pInputText class="w-full mb-3" name="eventName" ngModel>
+            <input id="eventName" type="text" #eventName="ngModel" placeholder="Event Name" pInputText class="w-full mb-3" name="eventName" ngModel>
+            <div *ngIf="!eventName.dirty && eventName.touched"><small>*Event Name is required</small></div>
 
-            <!-- <p>Artist Name: {{artist.name}}</p>
-            <p>Venue Name: {{venue.place}}</p> -->
             <label class="block mt-2 mb-2">Artist Name: <span class=" artistName">{{artist.name}}</span></label>
             <label class="block mt-2 mb-2">Venue: <span class=" venueName">{{venue.place}}</span></label>
 
             <label for="numberOfTickets" >Number Of Tickets</label>
-            <input id="numberOfTickets" type="number" placeholder="Number Of Tickets" pInputText class="w-full mb-3" name="numberOfTickets" ngModel>
-            
+            <input id="numberOfTickets" #numberOfTickets="ngModel" type="number" placeholder="Number Of Tickets" pInputText class="w-full mb-3" name="numberOfTickets" ngModel>
+            <div *ngIf="!numberOfTickets.dirty && numberOfTickets.touched"><small>*Number of tickets is required</small></div>       
+
             <label for="price" >Price Per Ticket</label>
-            <input id="price" type="number" placeholder="Price Per Ticket" pInputText class="w-full mb-3" name="price" ngModel>
+            <input id="price" #price="ngModel" type="number" placeholder="Price Per Ticket" pInputText class="w-full mb-3" name="price" ngModel>
+            <div *ngIf="!price.dirty && price.touched"><small>*Price is required</small></div>
 
-
-            <button pButton  label="Create Event"class="w-full button-size" type="submit"></button>
+            <button pButton  label="Create Event"class="w-full button-size" type="submit" [disabled]="!eventForm.dirty"></button>
            
         </div>
     </div>

@@ -3,6 +3,7 @@ import { EventService } from '../../services/event.service';
 import { BookingService } from '../../services/booking.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-events',
@@ -21,7 +22,7 @@ export class EventsComponent implements OnInit {
   selectedEventid:number;
   artistUsername:string='';
   byArtistUsername:boolean=false;
-  
+  constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.loadEvents();
@@ -51,6 +52,11 @@ export class EventsComponent implements OnInit {
   SearchByArtistUsername(){
     this.byArtistUsername=true;
     this.loadEvents();
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Events of '+ this.artistUsername,
+    });
   }
 
   OnBookTicket(eventId:number){
@@ -65,12 +71,41 @@ export class EventsComponent implements OnInit {
   AddBooking(){
     console.log(this.selectedEventid)
     const booking= {EventId: this.selectedEventid, NumberOfTickets: this.numberOfTickets}
-    this.bookingService.createBooking(booking).subscribe(() => {
-      this.showBookingDialog=false;
-      this.router.navigate(['bookings'], { queryParams: { refresh: new Date().getTime() } });
+    this.bookingService.createBooking(booking).subscribe( {
+      next:()=>{
+        console.log("Bookings created successfully");
+        this.showBookingDialog=false;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Tickets booked successfully!!',
+        });
+        setTimeout(()=>{          
+          this.router.navigate(['bookings'], { queryParams: { refresh: new Date().getTime() } });
+        },3000);
+      },
+      error:(err)=>{
+        let errorMessage = 'An internal error occurred.';
+        if (err.error && err.error.includes('Enter valid tickets')) {
+          errorMessage = 'Enter valid number of tickets!';
+        } 
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: errorMessage
+        });
+        this.showBookingDialog=false;
+      }
+      
+      
     });
     
   }
+
+
+ 
+
+
 
   CancelBooking(){
     this.showBookingDialog=false;
@@ -82,8 +117,31 @@ export class EventsComponent implements OnInit {
   }
 
   CancelEvent(EventId:number){
-    this.eventService.deleteEvent(EventId);
-    this.showCancelEventDialog=false;
+    this.eventService.deleteEvent(EventId).subscribe({
+      next:()=>{
+        console.log("Event Deleted successfully");
+        this.showCancelEventDialog=false;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Event deleted successfully!!',
+        });
+      },
+      error:(err)=>{
+        let errorMessage = 'An error occurred.';
+        if (err.error && err.error.includes('Tickets already booked')) {
+          errorMessage = 'Tickets are already booked. Event cannot be cancelled.';
+        } 
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: errorMessage
+        });
+        this.showCancelEventDialog=false;
+      }
+      
+      
+    })
   }
 
   Back(){

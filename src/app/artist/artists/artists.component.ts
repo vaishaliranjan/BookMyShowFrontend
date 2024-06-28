@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-artists',
   templateUrl: './artists.component.html',
-  styleUrl: './artists.component.css',
+  styleUrl: './artists.component.css'
 })
 export class ArtistsComponent implements OnInit {
   artists:any;
@@ -19,9 +19,9 @@ export class ArtistsComponent implements OnInit {
   artistName:string;
   timing:string;
   datePipe=inject(DatePipe);
-  messageService=inject(MessageService);
   artistUsername:string;
   authService=inject(AuthService);
+  constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.loadArtists();
@@ -33,6 +33,8 @@ export class ArtistsComponent implements OnInit {
       console.log(artists)
     })
   }
+
+ 
 
   OnSelectArtist(artist:any){
     this.artistService.setSelectedArtist(artist);
@@ -47,18 +49,31 @@ export class ArtistsComponent implements OnInit {
     this.timing=this.datePipe.transform(this.timing,'dd-MM-yyyyTHH:mm:ss');
     const artist= new Artist(this.artistName,this.artistUsername,this.timing);
    
-    this.artistService.addArtist(artist).subscribe(()=>{
-      console.log("Artist added successfully");
-      this.loadArtists()
-      this.showAddArtistDialog=false;
-      this.messageService.add({ 
-        key:'topright',
-        severity: 'success', 
-        summary: 'GeeksforGeeks', 
-        detail: 'Top right message', 
-      });
+    this.artistService.addArtist(artist).subscribe({
+      next:()=>{
+        console.log("Artist added successfully");
+        this.loadArtists()
+        this.showAddArtistDialog=false;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Artist added successfully!!',
+        });
+      },
+      error:(err)=>{
+        let errorMessage = 'An error occurred.';
+        if (err.error && err.error.includes('Invalid DateTime')) {
+          errorMessage = 'Invalid DateTime';
+        } 
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: errorMessage
+        });
+      }
       
-     })
+    
+    })
 
   }
 

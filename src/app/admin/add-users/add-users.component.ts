@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { AddUserData } from '../../model/add-user.model';
 import { Router } from '@angular/router';
-import { Message, MessageService } from "primeng/api"; 
+import {  MessageService } from "primeng/api"; 
 
 @Component({
   selector: 'app-add-users',
@@ -47,7 +47,7 @@ export class AddUsersComponent {
           summary: 'Success',
           detail: 'User added successfully!!',
         });
-        // this.router.navigate(['admins','dashboard']);
+        this.loginForm.reset();
       },
       error:(err)=>{
         let errorMessage = 'An error occurred.';

@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { HeaderComponent } from '../header/header.component';
 import { MessagesModule } from 'primeng/messages';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -24,7 +26,11 @@ import { MessagesModule } from 'primeng/messages';
     FormsModule,
     InputTextModule,
     HeaderComponent,
-    MessagesModule
+    MessagesModule,
+    ToastModule
+  ],
+  providers:[
+    MessageService
   ]
 })
 export class VenueModule { }

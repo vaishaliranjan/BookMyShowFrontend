@@ -1,17 +1,22 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { BookingService } from '../../services/booking.service';
 import { UserService } from '../../services/user.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
-  styleUrl: './customers.component.css'
+  styleUrl: './customers.component.css',
+  providers:[
+    MessageService
+  ]
 })
 export class CustomersComponent implements OnInit {
   customers:any;
   customerService= inject(UserService);
   showDeleteDialog:boolean=false;
   customerId:string;
+  constructor(private messageService: MessageService) { }
   ngOnInit(): void {
     this.loadCustomers();
   }
@@ -32,6 +37,11 @@ export class CustomersComponent implements OnInit {
       this.loadCustomers();
       console.log("Customer Delete Successfully")
       this.showDeleteDialog=false;
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Customer deleted successfully!!',
+      });
     })
   }
 

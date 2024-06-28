@@ -12,7 +12,7 @@ export class AddUserData{
     confirmPassword:string;
     RoleId:string;
 
-    constructor(fullname:string,username:string,email:string,password:string,confirmPassword:string,role:string){
+    constructor(fullname: string,username:string,email:string,password:string,confirmPassword:string,role:string){
         this.name=fullname;
         this.username=username;
         this.email=email;

@@ -21,7 +21,10 @@
     background-color: #E72929;
     border: Red;
   }
-
+  small{
+    color: #E72929;
+    font-weight: bold;
+  }
   .addEvent{
     font-size: 20px;
     font-weight: 600;
